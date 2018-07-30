@@ -118,3 +118,100 @@ INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:23:34
 INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:23:34
 INFO:__lace__:Tearing down connection to UNIS...
 INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:26:52
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:26:52
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:31:20
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:31:20
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:37:12
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:37:12
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:37:39
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:37:39
+INFO:__lace__:Starting Unis network Runtime Environment...
+********** Beginning Topology Daemon ********** | 2018-07-30 18:37:48
+ - Starting Main Loop -  | 2018-07-30 18:37:48
+CREATE NEW THREAD for -  SNMP | 2018-07-30 18:38:48
+Tearing down connection to UNIS...
+Teardown complete.
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:41:27
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:41:27
+INFO:__lace__:Starting Unis network Runtime Environment...
+********** Beginning Topology Daemon ********** | 2018-07-30 18:41:35
+ - Starting Main Loop -  | 2018-07-30 18:41:35
+CREATE NEW THREAD for -  SNMP | 2018-07-30 18:42:35
+Tearing down connection to UNIS...
+Teardown complete.
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:46:23
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:46:23
+INFO:__lace__:Starting Unis network Runtime Environment...
+********** Beginning Topology Daemon ********** | 2018-07-30 18:46:31
+ - Starting Main Loop -  | 2018-07-30 18:46:31
+CREATE NEW THREAD for -  SNMP | 2018-07-30 18:47:31
+Starting SNMP discovery for 172.18.0.25 | 2018-07-30 18:47:31
+Finished SNMP discovery for 172.18.0.25 | 2018-07-30 18:47:39
+Starting SNMP discovery for 172.18.0.45 | 2018-07-30 18:47:39
+Failed to query SNMP MIBS at host 172.18.0.45 | 2018-07-30 18:47:43
+Finished SNMP discovery for 172.18.0.45 | 2018-07-30 18:47:43
+Starting SNMP discovery for 172.18.0.30 | 2018-07-30 18:47:43
+Finished SNMP discovery for 172.18.0.30 | 2018-07-30 18:47:55
+Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:47:55
+Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:47:59
+Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:47:59
+Starting SNMP discovery for 172.18.0.40 | 2018-07-30 18:47:59
+Finished SNMP discovery for 172.18.0.40 | 2018-07-30 18:48:03
+Starting SNMP discovery for 172.18.0.1 | 2018-07-30 18:48:03
+Failed to query SNMP MIBS at host 172.18.0.1 | 2018-07-30 18:48:07
+Finished SNMP discovery for 172.18.0.1 | 2018-07-30 18:48:07
+Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:48:07
+Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:48:11
+Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:48:11
+CREATE NEW THREAD for -  SNMP | 2018-07-30 18:48:31
+Starting SNMP discovery for 172.18.0.25 | 2018-07-30 18:48:31
+Finished SNMP discovery for 172.18.0.25 | 2018-07-30 18:48:39
+Starting SNMP discovery for 172.18.0.45 | 2018-07-30 18:48:39
+Failed to query SNMP MIBS at host 172.18.0.45 | 2018-07-30 18:48:43
+Finished SNMP discovery for 172.18.0.45 | 2018-07-30 18:48:43
+Starting SNMP discovery for 172.18.0.30 | 2018-07-30 18:48:43
+Finished SNMP discovery for 172.18.0.30 | 2018-07-30 18:48:55
+Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:48:55
+Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:48:59
+Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:48:59
+Starting SNMP discovery for 172.18.0.40 | 2018-07-30 18:48:59
+Finished SNMP discovery for 172.18.0.40 | 2018-07-30 18:49:03
+Starting SNMP discovery for 172.18.0.1 | 2018-07-30 18:49:03
+Failed to query SNMP MIBS at host 172.18.0.1 | 2018-07-30 18:49:07
+Finished SNMP discovery for 172.18.0.1 | 2018-07-30 18:49:07
+Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:49:07
+Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:49:11
+Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:49:11
+CREATE NEW THREAD for -  SNMP | 2018-07-30 18:49:31
+Starting SNMP discovery for 172.18.0.25 | 2018-07-30 18:49:31
+Finished SNMP discovery for 172.18.0.25 | 2018-07-30 18:49:39
+Starting SNMP discovery for 172.18.0.45 | 2018-07-30 18:49:39
+Failed to query SNMP MIBS at host 172.18.0.45 | 2018-07-30 18:49:43
+Finished SNMP discovery for 172.18.0.45 | 2018-07-30 18:49:43
+Starting SNMP discovery for 172.18.0.30 | 2018-07-30 18:49:43
+Finished SNMP discovery for 172.18.0.30 | 2018-07-30 18:49:55
+Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:49:55
+Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:49:59
+Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:49:59
+Starting SNMP discovery for 172.18.0.40 | 2018-07-30 18:49:59
+Finished SNMP discovery for 172.18.0.40 | 2018-07-30 18:50:03
+Starting SNMP discovery for 172.18.0.1 | 2018-07-30 18:50:03
+Failed to query SNMP MIBS at host 172.18.0.1 | 2018-07-30 18:50:07
+Finished SNMP discovery for 172.18.0.1 | 2018-07-30 18:50:07
+Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:50:07
+Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:50:11
+Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:50:11
+CREATE NEW THREAD for -  SNMP | 2018-07-30 18:50:31
+Starting SNMP discovery for 172.18.0.25 | 2018-07-30 18:50:31

@@ -31,7 +31,7 @@ class TopologyDaemon:
             self.unis_host   = unis_host
             self.unis_server = unis_server
         
-        
+        self.log_file = log_file
         self.rt = Runtime(self.unis_host)
         
         # if no interval is set, default to global interval.
@@ -108,17 +108,22 @@ class TopologyDaemon:
 
     def start(self):
 
-        with daemon.DaemonContext():
-            logging.info("********** Beginning Topology Daemon **********")
+        logger = logging.getLogger()
+        fh = logging.FileHandler(self.log_file)
+        logger.addHandler(fh)
 
+        with daemon.DaemonContext(files_preserve = [fh.stream]):
+            self._log("********** Beginning Topology Daemon **********")
+            
+            self._log(" - Starting Main Loop - ")
             while True:
                 # over every defined interval, run the tools.
                 time.sleep(self.discovery_interval)
                 
                 self._log("CREATE NEW THREAD for -  SNMP")
-                snmp = thread.start_new_thread(self._snmp_discovery_thread, ()).setDaemon(True)
+                snmp_thread = Thread(target=self._snmp_discovery_thread).start()
 
 if __name__ == "__main__":
     
     topod = TopologyDaemon(config="/etc/ryu/osiris-sdn-app.conf") 
-    topod._snmp_discovery_thread()
+    topod.start()
