@@ -115,7 +115,7 @@ class SNMP_Manager():
                     'address' : {
                             'type':'mac',
                             'address': mac
-                        }
+                        },
                     'properties':{
                             'type':'virtual_link',
                             

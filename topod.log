@@ -1,0 +1,120 @@
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Starting SNMP discovery for 172.18.0.45 | 2018-07-30 16:46:21
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Starting SNMP discovery for 172.18.0.30 | 2018-07-30 16:49:06
+INFO:root:Finished SNMP discovery for 172.18.0.30 | 2018-07-30 16:49:19
+INFO:root:Starting SNMP discovery for 172.18.0.25 | 2018-07-30 16:49:19
+INFO:root:Finished SNMP discovery for 172.18.0.25 | 2018-07-30 16:49:27
+INFO:root:Starting SNMP discovery for 172.18.0.45 | 2018-07-30 16:49:27
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.45 | 2018-07-30 16:49:31
+INFO:root:Finished SNMP discovery for 172.18.0.45 | 2018-07-30 16:49:31
+INFO:root:Starting SNMP discovery for 172.18.0.40 | 2018-07-30 16:49:31
+INFO:root:Finished SNMP discovery for 172.18.0.40 | 2018-07-30 16:49:35
+INFO:root:Starting SNMP discovery for 172.18.0.31 | 2018-07-30 16:49:35
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 16:49:39
+INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 16:49:39
+INFO:root:Starting SNMP discovery for 172.18.0.31 | 2018-07-30 16:49:39
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 16:49:43
+INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 16:49:43
+INFO:root:Starting SNMP discovery for 172.18.0.1 | 2018-07-30 16:49:43
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.1 | 2018-07-30 16:49:47
+INFO:root:Finished SNMP discovery for 172.18.0.1 | 2018-07-30 16:49:47
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 17:48:20
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 17:48:31
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 17:48:45
+INFO:root:Updated Daemon - UNIS_HOST: "http://172.18.0.25:9000", UNIS_SERVER: "http://172.18.0.25:9000" | 2018-07-30 17:48:45
+INFO:root:Starting SNMP discovery for 172.18.0.30 | 2018-07-30 17:48:45
+INFO:root:Finished SNMP discovery for 172.18.0.30 | 2018-07-30 17:48:57
+INFO:root:Starting SNMP discovery for 172.18.0.25 | 2018-07-30 17:48:57
+INFO:root:Finished SNMP discovery for 172.18.0.25 | 2018-07-30 17:49:05
+INFO:root:Starting SNMP discovery for 172.18.0.45 | 2018-07-30 17:49:05
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.45 | 2018-07-30 17:49:09
+INFO:root:Finished SNMP discovery for 172.18.0.45 | 2018-07-30 17:49:09
+INFO:root:Starting SNMP discovery for 172.18.0.31 | 2018-07-30 17:49:09
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 17:49:13
+INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 17:49:13
+INFO:root:Starting SNMP discovery for 172.18.0.40 | 2018-07-30 17:49:13
+INFO:root:Finished SNMP discovery for 172.18.0.40 | 2018-07-30 17:49:17
+INFO:root:Starting SNMP discovery for 172.18.0.1 | 2018-07-30 17:49:17
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.1 | 2018-07-30 17:49:21
+INFO:root:Finished SNMP discovery for 172.18.0.1 | 2018-07-30 17:49:21
+INFO:root:Starting SNMP discovery for 172.18.0.31 | 2018-07-30 17:49:21
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 17:49:25
+INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 17:49:25
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:20:24
+INFO:root:Updated Daemon - UNIS_HOST: "http://172.18.0.25:9000", UNIS_SERVER: "http://172.18.0.25:9000" | 2018-07-30 18:20:24
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:21:08
+INFO:root:Updated Daemon - UNIS_HOST: "http://172.18.0.25:9000", UNIS_SERVER: "http://172.18.0.25:9000" | 2018-07-30 18:21:08
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.
+INFO:root:Log Initialized.
+INFO:root:Attempting to update daemon from config /etc/ryu/osiris-sdn-app.conf | 2018-07-30 18:22:53
+INFO:root:Updated Daemon - UNIS_HOST: http://172.18.0.25:9000, UNIS_SERVER: http://172.18.0.25:9000 | 2018-07-30 18:22:53
+INFO:__lace__:Starting Unis network Runtime Environment...
+INFO:root:Starting SNMP discovery for 172.18.0.45 | 2018-07-30 18:22:54
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.45 | 2018-07-30 18:22:58
+INFO:root:Finished SNMP discovery for 172.18.0.45 | 2018-07-30 18:22:58
+INFO:root:Starting SNMP discovery for 172.18.0.25 | 2018-07-30 18:22:58
+INFO:root:Finished SNMP discovery for 172.18.0.25 | 2018-07-30 18:23:06
+INFO:root:Starting SNMP discovery for 172.18.0.30 | 2018-07-30 18:23:06
+INFO:root:Finished SNMP discovery for 172.18.0.30 | 2018-07-30 18:23:18
+INFO:root:Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:23:18
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:23:22
+INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:23:22
+INFO:root:Starting SNMP discovery for 172.18.0.40 | 2018-07-30 18:23:22
+INFO:root:Finished SNMP discovery for 172.18.0.40 | 2018-07-30 18:23:26
+INFO:root:Starting SNMP discovery for 172.18.0.1 | 2018-07-30 18:23:26
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.1 | 2018-07-30 18:23:30
+INFO:root:Finished SNMP discovery for 172.18.0.1 | 2018-07-30 18:23:30
+INFO:root:Starting SNMP discovery for 172.18.0.31 | 2018-07-30 18:23:30
+INFO:root:Failed to query SNMP MIBS at host 172.18.0.31 | 2018-07-30 18:23:34
+INFO:root:Finished SNMP discovery for 172.18.0.31 | 2018-07-30 18:23:34
+INFO:__lace__:Tearing down connection to UNIS...
+INFO:__lace__:Teardown complete.

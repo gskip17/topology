@@ -26,7 +26,8 @@ setuptools.setup(name='osiris-sdn-app',
                      'unisrt',
                      'easysnmp',
                      'ryu',
-                     'configparser'
+                     'configparser',
+                     'python-daemon'
                  ],
                  options = {'bdist_rpm':{'post_install' : 'config/RPM/centos_postinstall.sh',
                                          'post_uninstall' : 'config/RPM/centos_postuninstall.sh'}},
