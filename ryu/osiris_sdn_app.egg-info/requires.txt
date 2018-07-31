@@ -2,3 +2,5 @@ unisrt
 easysnmp
 ryu
 configparser
+python-daemon
+scapy
