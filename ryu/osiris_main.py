@@ -504,6 +504,32 @@ class OSIRISApp(app_manager.RyuApp):
 
         match = ''                                            # instantiate something to store the href if we hit a match
 
+        def clean_up(topology):
+            
+            domain_exists = False # once we see a domain once we should remove copies of it.
+            self.logger.info("Finishing Up startup, cleaning up topologies.")
+            new_domains = []
+            for domain in topology.domains:
+                try:
+                    temp_name = domain.name
+                    if temp_name == self.domain_obj.name and domain_exists == False:
+                        self.logger.info("Ensured instance of local domain in remote topology")
+                        new_domains.append(domain)
+                        domain_exists = True
+                    elif temp_name == self.domain_obj.name and domain_exists == True:
+                        self.logger.info("Found Duplicate of local domain obj in remote topology, deleting..")
+                        topology.domains.remove(domain)
+                        #self.logger.info(topology.domains.to_JSON())
+                    else:
+                        new_domains.append(domain)
+                except:
+                    self.logger.info("Delete Broken Domain")
+                    topology.domains.remove(domain)
+            topology.domains = new_domains
+            topology.commit()
+            host_rt.flush()
+            return
+
         for index, href in enumerate(href_list):                                # time to sift through the different unis instances
 
                 unis_href = href.split('8888', 1)[0] + '8888' # regex here?, TODO? 
@@ -536,7 +562,8 @@ class OSIRISApp(app_manager.RyuApp):
                                                     link = l
                                                     link.endpoints[0] = most_recent_domain
                                                     self.logger.info('Verified the link to this domain.\n')
-                                                    return
+                                                    
+                                                    
 
                                     if link == '' or topology.links == []: # no link was found, add it to the topology
                                         self.logger.info("No link found for this domain, creating and adding it to host topology...")
@@ -568,9 +595,8 @@ class OSIRISApp(app_manager.RyuApp):
                 self.logger.info('No match found for: ' + str(self.domain_obj.name) + ', adding domain to host site, '+ str( topology.selfRef))
                 # not sure how to go about this since a we are not pushing the remote object to the host but instead 'updating' it.
 
+        clean_up(topology)
 
-
-        print("Finishing Up startup")
         return
 
     def create_domain(self):
