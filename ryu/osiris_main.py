@@ -555,6 +555,7 @@ class OSIRISApp(app_manager.RyuApp):
                                     link_name = "link-" + self.domain_obj.name + "-CHIC" # string - 'link-UM-CHIC'
                                     self.logger.info("TESTING AGAINST LINK NAME: " + link_name)
                                     link_map = list(map(lambda link: link.name == link_name, topology.links))
+                                    self.logger.info("Link Map - " + str(link_map))
                                     for key, l in enumerate(topology.links):
                                             if link_map[key] == True:
                                                     
