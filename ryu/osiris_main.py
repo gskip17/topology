@@ -134,7 +134,7 @@ class OSIRISApp(app_manager.RyuApp):
         ## UnisRT debug lines
         #trace.setLevel(lace.logging.DEBUG) 
         self.logger.info("UNIS SERVER: " + str( self.CONF.osiris.unis_server))
-        self.rt = Runtime([unis_server], proxy={ 'subscribe':False,'defer_update':True })
+        self.rt = Runtime([unis_server], proxy={ 'subscribe':True,'defer_update':True })
         print(self.rt.settings['proxy'])
        
         self.create_domain()
@@ -152,7 +152,7 @@ class OSIRISApp(app_manager.RyuApp):
         self.logger.info("Attemping to Update Host Topology")
         self.check_update_host_topology()
         self.logger.info('UPDATED HOST TOPOLOGY')
-        self.rt = Runtime(unis_server,proxy = {"subscribe":False, "defer_update":True})
+        
         self.logger.info("Created initial RT instance")
         
         
@@ -233,13 +233,18 @@ class OSIRISApp(app_manager.RyuApp):
                 print("Could not update - ", self.alive_dict[id_])
             print("OLD TS: ", self.alive_dict[id_].ts)
             print("POKING", self.alive_dict[id_].selfRef)
-            #self.alive_dict[id_].touch()
+            self.alive_dict[id_].touch()
             print("NEW TS: ", self.alive_dict[id_].ts, '\n') 
-
+        
         self.logger.info("----- send_alive_dict_updates done -------")
         # reset
         self.alive_dict = dict()
+        self.domain_obj.commit()
+        self.logger.info('""""""" DOMAIN NODES INFO """""""' + str(self.domain_obj.nodes.getRuntime()) + " " + str(self.domain_obj._rt_live) + " " + str(self.domain_obj._rt_remote))
+        self.logger.info("BEFORE FLUSH -" +  str(self.rt._pending))
         self.rt.flush()
+        self.logger.info("********** DOMAIN AFTER NODE ADDED ************" + str(self.domain_obj.to_JSON()))
+        self.logger.info('"""""" DOMAIN NODES *******' + str(self.domain_obj.nodes._rt_parent.id))
         print("FLUSHED")
 
 ########### OpenFlow event Handlers #############
@@ -601,12 +606,13 @@ class OSIRISApp(app_manager.RyuApp):
 
     def create_domain(self):
         try:
-            domain_obj = next(self.rt.domains.where(lambda x: getattr(x, "name", None) == self.domain_name))
+            self.domain_obj = next(self.rt.domains.where(lambda x: getattr(x, "name", None) == self.domain_name))
         except:
             self.logger.info("CREATING A NEW DOMAIN")
-            domain_obj = Domain({"name": self.domain_name})
-            self.rt.insert(domain_obj, commit=True)
-        self.domain_obj = domain_obj
+            self.domain_obj = Domain({"name": self.domain_name})
+            self.rt.insert(self.domain_obj, commit=True)
+            self.rt.flush()
+        
         logging.info("New domain obj: " + str(self.domain_obj.to_JSON()))
 
     def send_desc_stats_request(self, datapath):
@@ -697,6 +703,7 @@ class OSIRISApp(app_manager.RyuApp):
             # get the node back out of UNIS after commit so it is treated as a UNIS object.
             switch_node = self.check_node(switch_name)
             self.domain_obj.nodes.append(switch_node)
+            self.domain_obj.commit()
         else:
             self.logger.info("FOUND switch_node id: %s" % switch_node.id)
         self.switches_dict[switch_node.id] = switch_node
@@ -742,13 +749,13 @@ class OSIRISApp(app_manager.RyuApp):
                     % (port_object.name, port_object.index, port_object.address.address))
                 self.rt.insert(port_object, commit=True)
                 self.domain_obj.ports.append(port_object)
-
+                self.domain_obj.commit()
             else:
                 self.logger.info("\n****OLD PORT***")
 
                 # The following line is a temporary fix so the merge function works correctly
                 port_object = self.find_port(self.domain_obj.ports, switch_name + ":" + port.name.decode("utf-8"), port.port_no)
-                print(port_object.to_JSON())
+                
                 port_object = self.merge_port_diff(port_object, port, switch_name)
 
             ports_list.append(port_object)
@@ -759,7 +766,7 @@ class OSIRISApp(app_manager.RyuApp):
         print("\nSWITCH NODE UPDATE - \n %s", switch_node)
         print("SWITCH DICT: %s" % self.switches_dict)
         self.switches_dict[switch_node.id].ports = ports_list
-
+        self.logger.info("**** DOMAIN SNAPSHOT ****" + str(self.domain_obj.to_JSON()))
         #switch_node.update()
         self.rt.flush()
 
@@ -818,6 +825,9 @@ class OSIRISApp(app_manager.RyuApp):
                         print("Couldnt get IP")
                     self.rt.insert(node, commit=True)
                     self.domain_obj.nodes.append(node)
+                    self.logger.info("**** PENDING STATUS *******" + str(self.rt._pending)) 
+                    
+                    self.rt.flush()
 
             # check to see if port is already on switch
             port = self.check_port_in_node_by_port_number(node, in_port)
@@ -838,7 +848,9 @@ class OSIRISApp(app_manager.RyuApp):
                 node.ports.append(port)
                 #node.update(force=True)
                 self.domain_obj.ports.append(port)
-                self.rt.flush()
+                
+                self.rt.flush() 
+                
                 print(port.name + " added. ")
 
             self.alive_dict[node.id] = node
@@ -940,6 +952,8 @@ class OSIRISApp(app_manager.RyuApp):
                         #[{"rel": "full", "href": switch_port.selfRef}, {"rel": "full", "href": host_port.selfRef}]
                     self.rt.insert(link, commit=True)
                     self.domain_obj.links.append(link)
+                    self.domain_obj.commit()
+                    
                 self.logger.info("Link id:"+link.id)
                 self.alive_dict[link.id] = link
             else:
