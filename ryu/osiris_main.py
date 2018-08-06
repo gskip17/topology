@@ -134,10 +134,10 @@ class OSIRISApp(app_manager.RyuApp):
         ## UnisRT debug lines
         #trace.setLevel(lace.logging.DEBUG) 
         self.logger.info("UNIS SERVER: " + str( self.CONF.osiris.unis_server))
-        self.rt = Runtime([unis_server], proxy={ 'subscribe':False,'defer_update':True} , name="main_rt")
+        self.rt = Runtime([unis_server], proxy={ 'subscribe':True,'defer_update':True} , name="main_rt")
         print(self.rt.settings['proxy'])
        
-        self.create_domain()
+        
         self.update_time_secs = calendar.timegm(time.gmtime())
         # Transient dict of LLDP-discovered Nodes, Ports and Links which are reset every cycle
         self.alive_dict = dict()
@@ -536,7 +536,8 @@ class OSIRISApp(app_manager.RyuApp):
                 self.logger.info("TESTING OUT " + str(unis_href))
                 current_rt = Runtime([unis_href], name="current"+str(index))
                 try:
-                        most_recent_domain = next(current_rt.domains.where({"name":self.domain_obj.name}))
+                        #most_recent_domain = next(current_rt.domains.where({"name":self.domain_obj.name}))
+                        most_recent_domain = current_rt.domains[0]
                         self.logger.info("Comparing " + str(self.domain_obj.name) + " with " + str(most_recent_domain.name))
 
                         if self.domain_obj.name == most_recent_domain.name:  # KEY: production switches now need to properly set the unis_domain setting in the config file from now on
@@ -598,19 +599,19 @@ class OSIRISApp(app_manager.RyuApp):
                 new_domain = self.domain_obj
                 topology.domains.append(new_domain)
                 topology.commit()
-                topology.flush()
+                host_rt.flush()
         clean_up(topology)
 
         return
 
     def create_domain(self):
         try:
-            domain_obj = next(self.rt.domains.where(lambda x: getattr(x, "name", None) == self.domain_name))
+            self.domain_obj = next(self.rt.domains.where({"name" == self.domain_name}))
         except:
             self.logger.info("CREATING A NEW DOMAIN")
-            domain_obj = Domain({"name": self.domain_name})
-            self.rt.insert(domain_obj, commit=True)
-        self.domain_obj = domain_obj
+            self.domain_obj = Domain({"name": self.domain_name})
+            self.rt.insert(self.domain_obj, commit=True)
+        self.domain_obj = self.domain_obj
         logging.info("New domain obj: " + str(self.domain_obj.to_JSON()))
 
     def send_desc_stats_request(self, datapath):
