@@ -2,6 +2,10 @@ from scapy.all import *
 from unis import Runtime
 from unis.models import *
 import sys
+
+'''
+    Simple class for using scapy to do traceroute. Arranges hops into an ordered list of dicts.
+'''
 class Traceroute:
     def __init__(self, host=None):
         self.host = host
@@ -18,7 +22,7 @@ class Traceroute:
 class Traceroute_Manager:
 
     def __init__(self, host_rt=None, remote_rt=None, host_node_name=None):
-
+        # TODO: read in defaults from a config.
         if host_rt == None:
             self.host_rt = Runtime("http://iu-ps01.osris.org:8888", name = "host")
         else:
@@ -31,6 +35,7 @@ class Traceroute_Manager:
 
         if host_node_name == None:
             try:
+                # TODO: fix hard code host node
                 self.host_node = next(self.host_rt.nodes.where({"name":"switch:647020279235264"}))
             except:
                 print("Not a valid node name. Exitting..")
@@ -42,13 +47,17 @@ class Traceroute_Manager:
                 print("Not a valid node name. Exitting..")
                 sys.exit(0)
 
-        print("Looking for domain for traceroute discovered sources..")
+        print("Looking for Traceroute Domain") 
         try: 
-            self.tc_domain = next(self.host_rt.where({"name":"Traceroute"}))
+            self.tc_domain = next(self.host_rt.domains.where({"name":"Traceroute"}))
         except:
+            print("No Traceroute Domian found on host unis, creating one..")
             self.tc_domain = Domain({"name":"Traceroute"})
             self.host_rt.insert(self.tc_domain, commit = True)
             self.host_rt.flush()
+            
+            topology = self.host_rt.topologies[0]
+            topology.domains.append(self.tc_domain)
 
         self.tc = Traceroute()
         
@@ -111,7 +120,7 @@ class Traceroute_Manager:
             print("Searching for next hop in UNIS")
             try:
                 
-                next_hop = next(self.host_rt.where({"properties":{"mgmtaddr":hop["ip"]}}))
+                next_hop = next(self.host_rt.nodes.where({"properties":{"mgmtaddr":hop["ip"]}}))
                 next_port = next_hop.ports[0]
                 try:
                     link = next(self.host_rt.links.where(lambda l: l.name == (last_hop.ports[0].id + ":" + next_port.id) or l.name == (next_port.id + ":" + last_hop.ports[0].id)))
@@ -121,7 +130,8 @@ class Traceroute_Manager:
                 
                 self.host_rt.insert(link, commit = True)
                 print("Added discovered node " + next_hop.name) 
-            
+                
+                self.tc_domain.append(link)
             except Exception as e:
                 
                 print("Node not found for hop " + str(hop["ttl"]) + ", Creating new node")
@@ -139,7 +149,11 @@ class Traceroute_Manager:
                 print("Created Node - " +  next_hop.id)
                 print("Created Port - " + next_port.id)
                 print("Created Link between " + last_hop.name + " and " + next_hop.name)
-            
+                
+
+                self.tc_domain.append(next_hop)
+                self.tc_domain.append(link)
+
             self.host_rt.flush()
             if last_hop.properties.mgmtaddr == next_hop.properties.mgmtaddr:
                 return hops
