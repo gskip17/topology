@@ -134,11 +134,8 @@ class OSIRISApp(app_manager.RyuApp):
         ## UnisRT debug lines
         #trace.setLevel(lace.logging.DEBUG) 
         self.logger.info("UNIS SERVER: " + str( self.CONF.osiris.unis_server))
-<<<<<<< HEAD
-        self.rt = Runtime([unis_server], proxy={ 'subscribe':True,'defer_update':True })
-=======
         self.rt = Runtime([unis_server], proxy={ 'subscribe':True,'defer_update':True} , name="main_rt")
->>>>>>> 15416c624fcc495462ab45c4d3a479cf2ebb3e44
+
         print(self.rt.settings['proxy'])
        
         
