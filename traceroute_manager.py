@@ -49,16 +49,16 @@ class Traceroute_Manager:
 
         print("Looking for Traceroute Domain") 
         try: 
-            self.tc_domain = next(self.host_rt.domains.where({"name":"Traceroute"}))
+            self.tc_domain = next(self.host_rt.domains.where({"name":"TraceRouteV"}))
         except:
             print("No Traceroute Domian found on host unis, creating one..")
-            self.tc_domain = Domain({"name":"Traceroute"})
+            self.tc_domain = Domain({"name":"TracerouteV"})
             self.host_rt.insert(self.tc_domain, commit = True)
             self.host_rt.flush()
             
             topology = self.host_rt.topologies[0]
             topology.domains.append(self.tc_domain)
-
+            self.host_rt.flush()
         self.tc = Traceroute()
         
         return
@@ -104,13 +104,14 @@ class Traceroute_Manager:
         
         path_nodes = [self.host_node]
 
+        # attempt to trace the path 
         try:
             hops = self.tc.trace(node.properties.mgmtaddr)
         except Exception as e:
             print("Exception: ", e.__traceback__)
             print("Unable to reach IP address of node: " + node.name + " - " + node.properties.mgmtaddr)
         
-        
+        # keep track of hops, for each hop test against UNIS and build accordingly
         last_hop = self.host_node
         for hop in hops:
 
@@ -151,8 +152,8 @@ class Traceroute_Manager:
                 print("Created Link between " + last_hop.name + " and " + next_hop.name)
                 
 
-                self.tc_domain.append(next_hop)
-                self.tc_domain.append(link)
+                self.tc_domain.nodes.append(next_hop)
+                self.tc_domain.links.append(link)
 
             self.host_rt.flush()
             if last_hop.properties.mgmtaddr == next_hop.properties.mgmtaddr:
