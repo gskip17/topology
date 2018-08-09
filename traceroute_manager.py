@@ -24,11 +24,13 @@ class Traceroute_Manager:
 
     def __init__(self, host_rt=None, remote_rt=None, host_node_name=None):
         # TODO: read in defaults from a config.
-        if host_rt == None:
+        '''if host_rt == None:
             self.host_rt = Runtime("http://iu-ps01.osris.org:8888", name = "host")
         else:
             self.host_rt = host_rt
-
+        '''
+        self.host_rt = self._setup_runtime(host_rt)
+        print(self.host_rt)
         if remote_rt == None:
             self.remote_rt = Runtime("http://iu-ps01.osris.org:8888", name = "remote")
         else:
@@ -39,6 +41,7 @@ class Traceroute_Manager:
                 # TODO: fix hard code host node
                 self.host_node = next(self.host_rt.nodes.where({"name":"switch:647020279235264"}))
             except:
+                traceback.print_exc()
                 print("Not a valid node name. Exitting..")
                 sys.exit(0)
         else:
@@ -53,6 +56,19 @@ class Traceroute_Manager:
         
 
         return
+
+    def _setup_runtime(self, host_rt):
+        # Setting up RT sources
+        rt = Runtime(host_rt)
+        topo_dict = rt.topologies[0].to_JSON()
+        hrefs = []
+        for item in topo_dict['domains']:
+            href = item['href'].split('/domains')[0]
+            if href not in hrefs:
+                hrefs.append(href)
+        print("Href list: ", hrefs)
+        return  Runtime(hrefs, name="host")
+        
     
     '''
         Visits a UNIS instance to ensure that the Tracerout domain exists,
@@ -144,7 +160,7 @@ class Traceroute_Manager:
                 next_port = next_hop.ports[0]
                 print("Next Hop found in UNIS..")
                 try:
-                    link = next(self.host_rt.links.where(lambda l: l.name == (last_hop.ports[0].id + ":" + next_port.id) or l.name == (next_port.id + ":" + last_hop.ports[0].id)))
+                    link = next(self.host_rt.links.where(lambda l: l.name == (last_hop.ports[0].id + ":" + next_port.id)))
                     print("Existing Link found between " + last_hop.name + " and " + next_hop.name)
                 except:
                     print("No existing link between " + last_hop.name + " and " + next_hop.name + ", creating new link..")
@@ -186,9 +202,9 @@ class Traceroute_Manager:
         return
 
 if __name__ == '__main__':
-       tcm = Traceroute_Manager()
-       target_nodes = tcm._setup("virt")
-       for node in target_nodes:
-           print(node.to_JSON())
-           hops = tcm.build_path(node)
-           print(hops)
+    tcm = Traceroute_Manager(host_rt = "http://iu-ps01.osris.org:8888")
+    target_nodes = tcm._setup("virt")
+    for node in target_nodes:
+        print(node.to_JSON())
+        hops = tcm.build_path(node)
+        print(hops)

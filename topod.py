@@ -7,7 +7,7 @@ from threading import Thread
 from snmp_manager import *
 from unis import Runtime
 from configparser import ConfigParser
-
+import argparse
 
 MINUTES = 1
 DEFAULT_DISCOVERY_INTERVAL = (60) * ( MINUTES )
@@ -65,14 +65,13 @@ class TopologyDaemon:
 
         try:
             parser.read(path)
-        
+            config_section_name   = parser.sections()[0]
+            config                = parser[config_section_name]
         except Exception:
             self._log("Failed to read file from path: " + path)
             raise AttributeError("INVALID FILE PATH FOR STATIC RESOURCE INI.")
             return False
-
-        config_section_name   = parser.sections()[0]
-        config                = parser[config_section_name]
+    
         
         self.unis_host   = config['unis_host'].replace('"','').replace("'",'')
         self.unis_server = config['unis_server'].replace('"','').replace("'",'')
@@ -124,6 +123,11 @@ class TopologyDaemon:
                 snmp_thread = Thread(target=self._snmp_discovery_thread).start()
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Topology Daemon handles the orchestration and runtime of NMAL topology tools.')
+    parser.add_argument('-c', '--config', default='/etc/ryu/osiris-sdn-app.conf', type=str, help='Path where the config is located. Default /etc/ryu/osiris-sdn-app.conf')
+    args = parser.parse_args()
+
+    config_path = args.config
     
-    topod = TopologyDaemon(config="/etc/ryu/osiris-sdn-app.conf") 
+    topod = TopologyDaemon(config=config_path) 
     topod.start()
