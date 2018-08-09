@@ -47,22 +47,33 @@ class Traceroute_Manager:
                 print("Not a valid node name. Exitting..")
                 sys.exit(0)
 
+        self._register_to_topology()
+        self.tc = Traceroute()
+        
+
+        return
+    
+    '''
+        Visits a UNIS instance to ensure that the Tracerout domain exists,
+            if it does not exist, create it and add it to the topology.
+    '''
+    def _register_to_topology(self):
+
         print("Looking for Traceroute Domain") 
         try: 
-            self.tc_domain = next(self.host_rt.domains.where({"name":"TraceRouteV"}))
+            self.tc_domain = next(self.host_rt.domains.where({"name":"TracerouteV"}))
+            print("Found existing Traceroute domain on UNIS host")
         except:
-            print("No Traceroute Domian found on host unis, creating one..")
+            print("No Traceroute Domian found on host UNIS, creating one..")
             self.tc_domain = Domain({"name":"TracerouteV"})
             self.host_rt.insert(self.tc_domain, commit = True)
             self.host_rt.flush()
             
-            topology = self.host_rt.topologies[0]
-            topology.domains.append(self.tc_domain)
-            self.host_rt.flush()
-        self.tc = Traceroute()
-        
+        topology = self.host_rt.topologies[0]
+        topology.domains.append(self.tc_domain)
+        self.host_rt.flush()
+
         return
-    
     '''
         @param:pattern:string - string of a node name search pattern you are looking for in each domain.
 
@@ -118,11 +129,14 @@ class Traceroute_Manager:
             path_nodes.append(hop)
 
             print("Last Hop: " + last_hop.name + " - " + last_hop.properties.mgmtaddr)
+            
             print("Searching for next hop in UNIS")
             try:
                 
                 next_hop = next(self.host_rt.nodes.where({"properties":{"mgmtaddr":hop["ip"]}}))
+                print("NEXT HOP", next_hop)
                 next_port = next_hop.ports[0]
+                print("Next Hop found in UNIS..")
                 try:
                     link = next(self.host_rt.links.where(lambda l: l.name == (last_hop.ports[0].id + ":" + next_port.id) or l.name == (next_port.id + ":" + last_hop.ports[0].id)))
                     print("Existing Link found between " + last_hop.name + " and " + next_hop.name)
