@@ -717,7 +717,8 @@ class OSIRISApp(app_manager.RyuApp):
             # get the node back out of UNIS after commit so it is treated as a UNIS object.
             switch_node = self.check_node(switch_name)
             self.domain_obj.nodes.append(switch_node)
-            self.domain_obj.commit()
+            self.rt.flush()
+            #self.domain_obj.commit()
         else:
             self.logger.info("FOUND switch_node id: %s" % switch_node.id)
         self.switches_dict[switch_node.id] = switch_node
@@ -728,6 +729,8 @@ class OSIRISApp(app_manager.RyuApp):
         for port in switch.ports:
 
             # Search by Port Name - checks if port is already attached to our node.
+            print("SWITCH NODE NAME: ", switch_node.name)
+            print("SWITCH NAME", switch_name)
             port_object = self.check_port(switch_name + ":" + port.name.decode('utf-8'), switch_node)
 
             if port_object is None:
@@ -769,9 +772,9 @@ class OSIRISApp(app_manager.RyuApp):
 
                 # The following line is a temporary fix so the merge function works correctly
                 port_object = self.find_port(self.domain_obj.ports, switch_name + ":" + port.name.decode("utf-8"), port.port_no)
-                
+               	
                 port_object = self.merge_port_diff(port_object, port, switch_name)
-
+                
             ports_list.append(port_object)
 
         # update the switch with the new list of ports
@@ -988,7 +991,7 @@ class OSIRISApp(app_manager.RyuApp):
         :param port: port entry from the OF message
         :return: port_object: Merged port object
         """
-        print(port_object.name, port.name.decode('utf-8'))
+        #print(port_object.name, port.name.decode('utf-8'))
         if port_object.name != switch_name + ':' + port.name.decode("utf-8"):
             self.logger.info("*** ERROR: Port name is different***")
             return None
@@ -1025,8 +1028,8 @@ class OSIRISApp(app_manager.RyuApp):
         :return: Port Object
         """
         for port in ports:
-            if port_index is not None and port_index == port.properties.vport_number:
-                return port
+            #if port_index is not None and port_index == port.properties.vport_number:
+            #    return port
             if port_name is not None and port_name == port.name:
                 return port
 
